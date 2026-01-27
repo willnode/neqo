@@ -40,7 +40,7 @@ fn bindgen() {
     // Platforms currently not supported.
     //
     // See <https://github.com/mozilla/mtu/issues/82>.
-    if matches!(target_os.as_str(), "ios" | "tvos" | "visionos") {
+    if matches!(target_os.as_str(), "ios" | "tvos" | "visionos" | "redox") {
         return;
     }
 
