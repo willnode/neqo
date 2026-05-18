@@ -285,7 +285,8 @@ fn build_bindings(base: &str, bindings: &Bindings, flags: &[String], gecko: bool
 }
 
 fn pkg_config() -> Vec<String> {
-    let modversion = Command::new("pkg-config")
+    let pkgconfig = env::var("PKG_CONFIG").unwrap_or("pkg-config".into());
+    let modversion = Command::new(&pkgconfig)
         .args(["--modversion", "nss"])
         .output()
         .expect("pkg-config reports NSS as absent")
@@ -307,7 +308,7 @@ fn pkg_config() -> Vec<String> {
         "neqo has NSS version requirement {version_req}, found {modversion}"
     );
 
-    let cfg = Command::new("pkg-config")
+    let cfg = Command::new(&pkgconfig)
         .args(["--cflags", "--libs", "nss"])
         .output()
         .expect("NSS flags not returned by pkg-config")
